@@ -54,14 +54,14 @@ See [this discussion](https://github.com/ansible/ansible/issues/15227) for more 
 ### Usage
 
 ```bash
-$ ansible-playbook --user pi --ask-pass --inventory 'IP-ADDRESS,' password.yml
+$ ansible-playbook --user pi --ask-pass --inventory 'IP-ADDRESS,' pi-password.yml
 ```
 
 Running this playbook on a Raspberry Pi with an initial DHCP assigned IP address of `192.168.1.237` will look something like this.
 
 ```bash
 $ cd plays
-$ ansible-playbook --user pi --ask-pass --inventory '192.168.1.237,' password.yml
+$ ansible-playbook --user pi --ask-pass --inventory '192.168.1.237,' pi-password.yml
 SSH password:
 New pi account password:
 confirm New pi account password:
@@ -104,8 +104,10 @@ User name: dario
 Password:
 confirm Password:
 Username description: Super Account
-Path to public SSH key: ./keys/id_rsa.pub
+Path to public SSH key [keys/id_rsa.pub]: ./keys/id_rsa.pub
 Ethernet interface [wlan0]:
+Wi-Fi SSID: my-wifi-ssid
+Wi-Fi PSK: my-wifi-psk
 Static IPv4 address: 192.168.1.20
 Routers (comma separated): 192.168.1.1
 DNS servers (comma separated) [192.168.1.1]:
