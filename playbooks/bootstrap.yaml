@@ -1,0 +1,48 @@
+---
+-   hosts: raspberry 
+    become: true
+    roles:
+    -   create_user
+    -   expand_filesystem
+    -   docker
+    -   firewall
+    -   static_ip
+
+    vars_prompt:
+        - name: "username"
+          prompt: "User name"
+          private: no
+        - name: "password"
+          prompt: "Password"
+          private: yes
+          encrypt: "sha512_crypt"
+          confirm: yes
+        - name: "comment"
+          prompt: "Username description"
+          private: no
+        - name: "public_key"
+          prompt: "Path to public SSH key"
+          default: "keys/id_rsa.pub"
+          private: no
+        - name: "interface"
+          prompt: "WLAN interface"
+          default: "wlan0"
+          private: no
+        - name: "ssid"
+          prompt: "Wi-Fi SSID"
+          private: no
+        - name: "psk"
+          prompt: "Wi-Fi PSK"
+          private: no
+        - name: "ipaddress"
+          prompt: "Static IPv4 address"
+          default: "192.168.1.20"
+          private: no
+        - name: "routers"
+          prompt: "Routers (comma separated)"
+          default: "192.168.1.1"
+          private: no
+        - name: "dns_servers"
+          prompt: "DNS servers (space separated)"
+          default: "192.168.1.1"
+          private: no

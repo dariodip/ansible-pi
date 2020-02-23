@@ -1,0 +1,14 @@
+---
+-   name: Configure static IP
+    become: yes
+    lineinfile:
+        dest:  /etc/dhcpcd.conf
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+        state: present
+    with_items:
+    -   { regexp: "^interface wlan[0-9]$", line: "interface {{ interface }}" }
+    -   { regexp: "^static ip_address", line: "static ip_address={{ ipaddress }}" }
+    -   { regexp: "^static routers", line: "static routers={{ routers }}" }
+    -   { regexp: "^static domain_name_servers", line: "static domain_name_servers={{ dns_servers }}" }
+    notify: Reboot

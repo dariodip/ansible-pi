@@ -1,0 +1,18 @@
+---
+-   name: Insall ufw
+    become: true
+    apt:
+        name: ufw
+        state: present
+        update_cache: yes
+-   name: Setup open ports
+    become: true
+    ufw:
+        rule: "allow"
+        port: "{{ item }}"
+    with_items: "{{ open_ports }}"
+-   name: Set default policy to deny and start firewall
+    become: true
+    ufw:
+        rule: "deny"
+        state: "enabled"

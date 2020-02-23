@@ -1,0 +1,6 @@
+---
+-   name: Set wpa_supplicant.conf
+    become: true
+    template:
+        src: templates/hostapd.conf.j2
+        dest: /etc/wpa_supplicant/wpa_supplicant.conf

@@ -1,0 +1,16 @@
+---
+
+-   name: Create a (non default) user account
+    become: true
+    user:
+        name: "{{ ansible_user }}"
+        shell: /bin/bash
+        createhome: yes
+        comment: "{{ comment }}"
+        groups: adm,dialout,cdrom,docker,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi
+        password: "{{ password }}"
+-   name: Deploy user's SSH key
+    become: yes
+    authorized_key:
+        user: "{{ ansible_user }}"
+        key: "{{ lookup('file', '{{ public_key }}') }}"
