@@ -1,0 +1,11 @@
+
+---
+-   name: Raspberry PI's address in /etc/hosts
+    become: true
+    local_action:
+        module: lineinfile
+        dest: '/etc/hosts'
+        regexp: '.*(\s)+{{ raspberry_host | mandatory }}'
+        line: "192.168.1.20    raspberry.local"
+    notify:
+        Flushcache

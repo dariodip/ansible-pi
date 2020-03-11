@@ -1,4 +1,15 @@
 ---
+
+-   hosts: local
+    become: sudo
+    roles: 
+    -   { role: "raspi_host", tags: "local" }
+    vars_prompt:
+      - name: "raspberry_host"
+        prompt: "Raspberry host"
+        default: "raspberry.local"
+        private: no
+
 -   hosts: raspberry 
     become: true
     roles:
@@ -46,3 +57,4 @@
           prompt: "DNS servers (space separated)"
           default: "192.168.1.1"
           private: no
+

@@ -1,0 +1,7 @@
+
+---
+-   name: Flushcache
+    command: dscacheutil -flushcache
+    async: 0
+    poll: 0
+    become: false
