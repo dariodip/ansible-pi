@@ -3,6 +3,17 @@
 -   name: Check username
     debug:
         msg: Creating user {{ username }}
+-   name: Make sure we have wheel group
+    group:
+        name: wheel
+        state: present
+-   name: Allow 'wheel' group to have passwordless sudo
+    lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^%wheel'
+        line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
 -   name: Create a (non default) user account
     become: true
     user:
@@ -10,7 +21,7 @@
         shell: /bin/bash
         createhome: yes
         comment: "{{ comment }}"
-        groups: adm,dialout,cdrom,docker,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi
+        groups: wheel,adm,dialout,cdrom,docker,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi
         password: "{{ password }}"
 -   name: Deploy user's SSH key
     become: yes
