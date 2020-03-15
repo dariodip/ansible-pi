@@ -60,13 +60,12 @@ $ ansible-playbook --user pi --ask-pass --inventory 'IP-ADDRESS,' pi-password.ym
 Running this playbook on a Raspberry Pi with an initial DHCP assigned IP address of `192.168.1.237` will look something like this.
 
 ```bash
-$ cd plays
-$ ansible-playbook --user pi --ask-pass --inventory '192.168.1.237,' pi-password.yml
+$ ansible-playbook --user pi --ask-pass -i <path to hosts> pi-password.yml
 SSH password:
 New pi account password:
 confirm New pi account password:
 
-PLAY [Default "pi" account password reset playbook] ****************************
+PLAY [Default pi account password reset playbook] ******************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [192.168.1.237]
@@ -82,23 +81,30 @@ PLAY RECAP *********************************************************************
 
 Performs some initial setup and lockdown on your new Pi.
 
-* Sets the hostname for the Pi
 * Creates a new user and deploys an SSH public key for the user
-* Disables password authentication and enforces SSH key authentication
-* Sets a static IP address, router and DNS servers
 * Expands the root filesystem to fill any remaining space on the Pi's SD card
+* Disables password authentication and enforces SSH key authentication
+* Installs Docker on the RaspberryPi
+* Creates and configures a UFW for RaspberryPi opening only the port `22`
+* Sets a static IP address, router and DNS servers
+* Sets the hostname for the RaspberryPi (local)
+* Sets `wpa_supplicant` for connecting via WiFi (wifi)
 
 ### Usage
 
 ```bash
-$ cd playbooks
-$ ansible-playbook --user pi --ask-pass --inventory 'IP-ADDRESS,' bootstrap.yml
+$ ansible-playbook --user pi --ask-pass -i <path to hosts> --tags "bootstrap,wifi,local" bootstrap.yml
 ```
 
-Running this playbook on the same Raspberry Pi described above, with a static IP of `192.168.1.2` looks something like this (remember to use the new password for the `pi` account!)
+`bootstrap.yml` playbook has three tags:
+- **bootstrap**: defines the abovementioned operations without setting WiFi and local hostname;
+- **wifi**: sets wpa_supplicant for Raspberry;
+- **local**: sets Raspberry host as desired for local machine.
+
+Running this playbook on the same Raspberry Pi described above, with a static IP of `192.168.1.90` looks something like this (remember to use the new password for the `pi` account!)
 
 ```bash
-$ ansible-playbook --user pi --ask-pass --inventory '192.168.1.237,' lockdown.yml
+$ ansible-playbook --user pi --ask-pass -i <path to hosts> --tags "bootstrap" lockdown.yml
 SSH password:
 User name: dario 
 Password:
@@ -106,9 +112,7 @@ confirm Password:
 Username description: Super Account
 Path to public SSH key [keys/id_rsa.pub]: ./keys/id_rsa.pub
 Ethernet interface [wlan0]:
-Wi-Fi SSID: my-wifi-ssid
-Wi-Fi PSK: my-wifi-psk
-Static IPv4 address: 192.168.1.20
+Static IPv4 address: 192.168.1.90
 Routers (comma separated): 192.168.1.1
 DNS servers (comma separated) [192.168.1.1]:
 
@@ -116,6 +120,8 @@ DNS servers (comma separated) [192.168.1.1]:
 ```
 
 The latter command will setup your Raspberry with the provided variables and will install Docker on it.
+
+To avoid variables prompt, you can provide a variables file via `--extra-vars '@path-to-vars.{yml,json}`.
 
 ## Contribution
 

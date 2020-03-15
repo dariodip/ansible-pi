@@ -1,13 +1,13 @@
-#! /bin/bash -e
+#! /bin/bash -xe
 
 source .env || true
 
-if [[ "x$SSID" -eq "x" ]]; then
+if [[ -z ${SSID} ]]; then
     echo "Environment variable SSID not set"
     exit 1
 fi
 
-if [[ "x$PSK" -eq "x" ]]; then
+if [[ -z ${PSK} ]]; then
     echo "Environment variable PSK not set"
     exit 1
 fi

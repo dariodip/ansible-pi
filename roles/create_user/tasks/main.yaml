@@ -1,9 +1,12 @@
 ---
 
+-   name: Check username
+    debug:
+        msg: Creating user {{ username }}
 -   name: Create a (non default) user account
     become: true
     user:
-        name: "{{ ansible_user }}"
+        name: "{{ username }}"
         shell: /bin/bash
         createhome: yes
         comment: "{{ comment }}"
@@ -12,5 +15,5 @@
 -   name: Deploy user's SSH key
     become: yes
     authorized_key:
-        user: "{{ ansible_user }}"
+        user: "{{ username }}"
         key: "{{ lookup('file', '{{ public_key }}') }}"

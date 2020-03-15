@@ -18,7 +18,7 @@ fi
 
 source .env || true
 
-if [[ "x$RASPBERRY_HOST" -eq "x" ]]; then
+if [[ -z ${RASPBERRY_HOST} ]]; then
     usage "Environment variable RASPBERRY_HOST not set"
     exit 1
 fi 
