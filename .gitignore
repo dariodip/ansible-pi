@@ -2,3 +2,4 @@
 .DS_Store
 hosts
 vars.yaml
+*.img

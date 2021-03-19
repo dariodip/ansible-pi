@@ -26,6 +26,12 @@ diskutil list
 
 The script will use `wget` to download the latest image, `unzip` to unzip it, `dd` to copy the image on the SD card and eventually `diskutil` to eject the SD card.
 
+#### Variables
+
+The following variables may be configured to customize the script:
+- `RPI_OS_IMAGE_URL`: URL for dowloading OS for Raspberry (default is `https://downloads.raspberrypi.org/raspbian_lite_latest`);
+- `UNZIP_CMD`: command to run to unzip downloaded OS (default is `unzip`)
+
 ### Setup Wi-Fi and SSD on the SD card
 
 To setup WLAN supplicant (to connect to the Wi-Fi) and SSH, you may use the scripts:
