@@ -21,7 +21,7 @@
         shell: /bin/bash
         createhome: yes
         comment: "{{ comment }}"
-        groups: wheel,adm,dialout,cdrom,docker,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi
+        groups: wheel,adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi
         password: "{{ password }}"
 -   name: Deploy user's SSH key
     become: yes

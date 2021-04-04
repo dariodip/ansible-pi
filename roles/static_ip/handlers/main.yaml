@@ -16,3 +16,13 @@
         delay: 10
         port: 22
     delegate_to: localhost
+
+-   name: Create a (non default) user account
+    become: true
+    user:
+        name: "{{ username }}"
+        shell: /bin/bash
+        createhome: yes
+        comment: "{{ comment }}"
+        groups: docker
+        password: "{{ password }}"

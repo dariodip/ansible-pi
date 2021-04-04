@@ -60,7 +60,7 @@ See [this discussion](https://github.com/ansible/ansible/issues/15227) for more 
 ### Usage
 
 ```bash
-$ ansible-playbook --user pi --ask-pass --inventory 'IP-ADDRESS,' pi-password.yml
+$ ansible-playbook --user pi --ask-pass --inventory 'IP-ADDRESS,' pi_password.yml
 ```
 
 Running this playbook on a Raspberry Pi with an initial DHCP assigned IP address of `192.168.1.237` will look something like this.
@@ -102,8 +102,9 @@ Performs some initial setup and lockdown on your new Pi.
 $ ansible-playbook --user pi --ask-pass -i <path to hosts> --tags "bootstrap,wifi,local" bootstrap.yml
 ```
 
-`bootstrap.yml` playbook has three tags:
+`bootstrap.yml` playbook has four tags:
 - **bootstrap**: defines the abovementioned operations without setting WiFi and local hostname;
+- **docker**: installs and setups docker;
 - **wifi**: sets wpa_supplicant for Raspberry;
 - **local**: sets Raspberry host as desired for local machine.
 
