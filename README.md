@@ -11,7 +11,7 @@ These playbooks also assume that you have [Ansible installed](https://docs.ansib
 ## Scripts
 ### Raspbian install
 
-The script `scripts/install.sh` fetched the latest *Raspbian* image and tries to clone it on the SD card.
+The script `scripts/install.sh` fetches the latest *Raspbian* image and tries to clone it on the SD card.
 
 To execute the script, run:
 ```bash
@@ -24,7 +24,7 @@ where `diskN` is the SD card disk. To discover this value, you have to run
 diskutil list
 ```
 
-The script will use `wget` to download the latest image, `unzip` to unzip it, `dd` to copy the image on the SD card and eventually `diskutil` to eject the SD card.
+The script uses `wget` to download the latest image, `unzip` to unzip it, `dd` to copy the image on the SD card and eventually `diskutil` to eject the SD card.
 
 #### Variables
 
@@ -42,7 +42,7 @@ To setup WLAN supplicant (to connect to the Wi-Fi) and SSH, you may use the scri
 
 ### Inventory
 
-When a Pi first boots it (usually) receives a DHCP assigned IP address, which the `bootstrap` playbook changes to a static IP.
+When a Pi first boots it usually receives a DHCP assigned IP address, which the `bootstrap` playbook changes to a static IP.
 
 To save having to create an inventory file and then immediately update it, these playbooks use a _feature_ of the `--inventory` command line argument for `ansible-playbook` where you can supply an IP address followed _**immediately**_ by a comma so that Ansible knows the inventory is a list of hosts (even though there's a single host being targeted).
 
